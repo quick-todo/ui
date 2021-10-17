@@ -1,21 +1,21 @@
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Switch,
   Route
 } from "react-router-dom";
 
 import Login from 'components/login/Login';
+import { AuthProvider } from "contexts/auth";
 
 function App() {
   return (
-    
-    <Router>
-      <Switch>
-        <Route path="/login">
-          <Login />
-        </Route>
-      </Switch>
-  </Router>
+    <BrowserRouter>
+      <AuthProvider>
+        <Switch>
+          <Route path="/login" component={Login} />
+        </Switch>
+      </AuthProvider>      
+    </BrowserRouter>
   );
 }
 
