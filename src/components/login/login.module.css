@@ -1,0 +1,20 @@
+.cover {
+  background-color: #f7f8fa;
+}
+
+.loginWrapper {
+  max-width: 400px;
+  margin: auto;
+}
+
+.emailInput {
+  padding: 10px;
+  display: block;
+  width: 100%;
+  border: 1px sold #ccc;
+}
+
+.emailLabel {
+  padding: 10px;
+}
+

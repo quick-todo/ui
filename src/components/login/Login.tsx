@@ -1,34 +1,39 @@
 import axios from 'core/axios'
+import styles from './Login.module.css';
 
-const login = async (e:  React.MouseEvent<HTMLElement>) => {
+import { useState } from 'react';
+
+const login = async (email: string) => {
   try {
-    const resp = await axios.post('user/create', {x:'y'})
+    const resp = await axios.post('magic-link/create', { email })
     console.log(resp);
   } catch (error) {
     console.log(error)
   }
 }
 
+
 const Login = () => {
-  return <div className="login">
-  <form>
-    <div className="">
-      <label className="" htmlFor="username">Username</label>
-      <input className="" id="username" type="text" placeholder="Username" />
+  const [email, setEmail] = useState<string>('')
+
+  return <div className={styles.cover}>
+    <div className={styles.loginWrapper}>
+    <h2>Welcome To Quick TODO</h2>
+      <div className="">
+        <label htmlFor="username">Email</label>
+        <input 
+          type="text" 
+          className={styles.emailInput}
+          placeholder="Email"
+          value={email} 
+          onInput={(e: any) => setEmail(e.target.value)}
+        />
+      </div>
+      <div>
+        <button type="button" onClick={(e) => login(email)}>Login / Sing up</button>
+      </div>
     </div>
-    <div className="mb-6">
-      <label className="" htmlFor="password">Password</label>
-      <input className="" id="password" type="password" placeholder="" />
-      <p className="">Please choose a password.</p>
-    </div>
-    <div className="">
-      <button className="" type="button" onClick={login}>Sign In</button>
-    </div>
-  </form>
-  <p className="text-center text-gray-500 text-xs">
-    ©2020 Acme Corp. All rights reserved.
-  </p>
-</div>
+  </div>
 }
 
 export default Login;
