@@ -1,20 +1,36 @@
-.cover {
-  background-color: #f7f8fa;
+.loginCover {
+  height: 100vh;
+  background-color: #f2f6ff;
 }
 
-.loginWrapper {
-  max-width: 400px;
+.loginFormCover {
+  width: 400px;
+  background-color: #ffffff;
+  border: 1px solid #fdfeff;
+  height: auto;
   margin: auto;
+  padding: 18px;
 }
 
-.emailInput {
-  padding: 10px;
-  display: block;
+.loginButton{
+  background-color: #257fff;
+  color: white;
+  box-shadow: none;
+  cursor: pointer;
+  margin-top: 12px;
   width: 100%;
-  border: 1px sold #ccc;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
 }
 
-.emailLabel {
-  padding: 10px;
+.input{
+  border: 1px solid #dbe6ff;
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 2px;
 }
 
+.input:focus{
+  outline:none;
+}

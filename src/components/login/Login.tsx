@@ -1,36 +1,48 @@
 import axios from 'core/axios'
+import { displayError } from 'core/errorsWrapper'
 import styles from './Login.module.css';
 
 import { useState } from 'react';
 
-const login = async (email: string) => {
-  try {
-    const resp = await axios.post('magic-link/create', { email })
-    console.log(resp);
-  } catch (error) {
-    console.log(error)
-  }
+function login(email: string) {
+  return axios.post('magic-link/create', { email })
 }
 
+function DisplayLoginUrl({hash}: {hash: string}) {
+  if (!hash) {
+    return null
+  }
+  return <a href={`http://localhost:3000/magic-link/${hash}`}>
+    Click to autoLogin
+  </a>
+}
 
 const Login = () => {
   const [email, setEmail] = useState<string>('')
+  const [hash, setHash] = useState<string>('')
 
-  return <div className={styles.cover}>
-    <div className={styles.loginWrapper}>
-    <h2>Welcome To Quick TODO</h2>
-      <div className="">
-        <label htmlFor="username">Email</label>
-        <input 
-          type="text" 
-          className={styles.emailInput}
-          placeholder="Email"
-          value={email} 
-          onInput={(e: any) => setEmail(e.target.value)}
-        />
-      </div>
-      <div>
-        <button type="button" onClick={(e) => login(email)}>Login / Sing up</button>
+  return <div>
+    <div className={styles.loginCover}>
+      <div className={styles.loginFormCover}>
+        <form className="register-form">
+          <input 
+            className={styles.input}
+            type="email" 
+            placeholder="Email"
+            value={email}
+            required={true}
+            onChange={(e: any) => setEmail(e.target.value)}
+          />
+          <button className={styles.loginButton} onClick={(e: any) => {
+            e.preventDefault();
+            login(email).then((data: any) => {
+              setHash(data.hash)
+            }).catch(displayError)
+          }}>
+            Login / Sign up
+          </button>
+        </form>
+        <DisplayLoginUrl hash={hash} />
       </div>
     </div>
   </div>
