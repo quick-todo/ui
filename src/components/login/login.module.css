@@ -1,36 +1,14 @@
 .loginCover {
-  height: 100vh;
   background-color: #f2f6ff;
-}
-
-.loginFormCover {
-  width: 400px;
-  background-color: #ffffff;
-  border: 1px solid #fdfeff;
-  height: auto;
-  margin: auto;
-  padding: 18px;
 }
 
 .loginButton{
   background-color: #257fff;
   color: white;
-  box-shadow: none;
   cursor: pointer;
   margin-top: 12px;
   width: 100%;
   padding: 12px;
   border: none;
   border-radius: 6px;
-}
-
-.input{
-  border: 1px solid #dbe6ff;
-  width: 100%;
-  padding: 10px 16px;
-  border-radius: 2px;
-}
-
-.input:focus{
-  outline:none;
 }

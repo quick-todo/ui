@@ -1,7 +1,6 @@
 import axios from 'core/axios'
 import { displayError } from 'core/errorsWrapper'
 import styles from './Login.module.css';
-
 import { useState } from 'react';
 
 function login(email: string) {
@@ -12,29 +11,34 @@ function DisplayLoginUrl({hash}: {hash: string}) {
   if (!hash) {
     return null
   }
-  return <a href={`http://localhost:3000/magic-link/${hash}`}>
-    Click to autoLogin
+
+  const url = `http://localhost:3000/magic-link/${hash}`;
+  return <a href={url} className="text-red-500 font-bold block text-center mt-10">
+    Click to Auto Login    
   </a>
 }
 
 const Login = () => {
   const [email, setEmail] = useState<string>('')
   const [hash, setHash] = useState<string>('')
-
   return <div>
-    <div className={styles.loginCover}>
-      <div className={styles.loginFormCover}>
+    <div className={`${styles.loginCover} flex justify-center items-center h-screen`}>
+      <div className="bg-white border p-10">
+        <h1 className="text-center text-xl mb-8">Welcome to TODO App</h1>
         <form className="register-form">
           <input 
-            className={styles.input}
-            type="email" 
+            className="outline-none border w-full p-3"
+            type="email"
             placeholder="Email"
             value={email}
-            required={true}
+            required
             onChange={(e: any) => setEmail(e.target.value)}
           />
           <button className={styles.loginButton} onClick={(e: any) => {
             e.preventDefault();
+
+            // if (validEmail(email)) {}
+            
             login(email).then((data: any) => {
               setHash(data.hash)
             }).catch(displayError)

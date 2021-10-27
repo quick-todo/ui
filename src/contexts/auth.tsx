@@ -1,29 +1,58 @@
-import { createContext, useState, ReactNode, useEffect, useContext } from 'react';
+import { createContext, useEffect, useContext } from 'react';
 import axios from 'core/axios'
+import { useCookies } from 'react-cookie';
+import { useHistory, useLocation } from 'react-router-dom';
 
 
 const AuthContext = createContext<object | null>({});
 
-export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<object | null>(null)
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const [cookie, , removeCookie] = useCookies(['accessToken', 'user'])
+  const history = useHistory()
+  const location = useLocation()
+
+
   useEffect(() => {
-    if (user) {
+    if (authRoutes(location)) {
+      // no need to validate auth routes
       return
     }
+
+    if (!cookie.accessToken) {
+      return
+    }
+
     axios
       .get('current-user')
-      .then((user) => setUser(user))
-      .catch(() => {
-        // TODO: unset token and logout
-        // - what if the network goes out?
+      .then(() => {})
+      .catch(({status}) => {
+        if (status === 403) {
+          // invalid token
+          removeCookie('accessToken')
+          removeCookie('user')
+          history.push('/login')          
+        }
       })
-  }, [user, setUser])
+  }, [location, removeCookie, history, cookie])
   
   return (
-    <AuthContext.Provider value={user}>
+    <AuthContext.Provider value={cookie.accessToken ? cookie.user : null}>
       {children}
     </AuthContext.Provider>
   );
+}
+
+
+function authRoutes(location: any) {
+  if (location.pathname.startsWith('/magic-link/')) {
+    return true
+  }
+
+  if (location.pathname.startsWith('/login')) {
+    return true
+  }
+
+  return false
 }
 
 export function useAuth() {

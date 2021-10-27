@@ -13,26 +13,28 @@ import React from 'react';
 
 function App() {
   return (
-    <CookiesProvider>
-      <AuthProvider>
-        <BrowserRouter>
+    <BrowserRouter>
+      <CookiesProvider>
+        <AuthProvider>          
           <Switch>
             <PrivateRoute exact path="/" component={Login} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/magic-link/:hash" component={AutoLogin} />
           </Switch>
-        </BrowserRouter>
-      </AuthProvider>
-    </CookiesProvider>
+        </AuthProvider>
+      </CookiesProvider>
+    </BrowserRouter>
   );
 }
 
 function PrivateRoute({component, isAuthenticated, ...rest}: any) {
   const user = useAuth()
+  console.log(user);
+  
   const routeComponent = (props: any) => (
     user
     ? React.createElement(component, props)
-    : <Redirect to={{pathname: '/login'}}/>
+    : <Redirect to={{pathname: '/login'}} />
   );
   return <Route {...rest} render={routeComponent}/>;
 }

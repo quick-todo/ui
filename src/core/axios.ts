@@ -14,8 +14,10 @@ function successNormalization(response: any) {
 }
 
 function errorNormalization(error: any) {
+  
   return Promise.reject({ 
-    errors: error?.response?.data?.errors || [], 
+    errors: error.response?.data?.errors || [], 
+    status: error.response?.status,
     errorObject: error
   })
 }
