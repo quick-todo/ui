@@ -2,6 +2,9 @@ module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   theme: {
     extend: {
+      colors: {
+        'tp-heading': '#3f375a',
+      },
       container: {
         screen: {
           sm: "100%",

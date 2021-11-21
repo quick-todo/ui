@@ -1,7 +1,9 @@
-import { useDispatch } from "react-redux";
-import { readTodo, toggleCompleteStatus } from "store/todoSlice"
+import { useCallback } from 'react'
+import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'store'
-import { useCallback } from "react";
+import { readTodo, toggleCompleteStatus } from 'store/todoSlice'
+import  TodoItemOptions from 'components/todo/TodoItemOptions'
+import RichText from 'components/todo/RichText'
 
 interface TODOItemProps {
   record: any 
@@ -17,16 +19,21 @@ function TodoItem(props: TODOItemProps) {
   }, [record._id, dispatch])
   
 
-  return <div className="flex flex-wrap border-2 rounded-md bg-white p-2">
+  return <div className="flex flex-wrap border rounded bg-white py-2 px-2  my-2">
     <div className="flex-none mr-2">
       <input type="checkbox" onClick={toggleItem} checked={record.isCompleted} readOnly />
     </div>
-    <p className={`flex-grow mr-2 ${record.isCompleted ? 'line-through' : '' }`}>
-      { record?.task }
-    </p>
-    {/* <div className="flex items-center">
-      <Dots width="15" height="3" />
-    </div> */}
+    <div className={`flex-grow mr-2 ${record.isCompleted ? 'line-through' : '' }`}>
+      <RichText
+        filterClass="cursor-pointer font-semibold	 text-blue-800"
+        text={record?.task}
+        onFilterClick={ (e, token) => {
+          console.log(e);          
+          console.log(token);          
+        }}
+      />
+    </div>
+    <TodoItemOptions record={record} />
   </div>
 }
 

@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import TodoItem from 'components/todo/TodoItem'
 import axios from 'core/axios'
 
 interface TodoRecord {
@@ -36,6 +35,10 @@ export const createTodo = createAsyncThunk(
 )
 export const toggleCompleteStatus = createAsyncThunk(
   'todo/toggle-complete-status',
+  (payload: any) => axios.post('todo/toggle-complete-status', payload)
+)
+export const deleteItem = createAsyncThunk(
+  'todo/delete',
   (payload: any) => axios.post('todo/toggle-complete-status', payload)
 )
 

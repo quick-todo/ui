@@ -23,9 +23,7 @@ function TodoItem(props: TODOItemProps) {
   }
   
   return <div className="flex flex-wrap border-2 rounded-md bg-white p-2">
-    <div className="flex-none mr-2">
-      <input type="radio" disabled={true}/>
-    </div>
+    <div className="flex-none mr-2 select-none text-gray-300 text-2xl leading-5">+</div>
     <p className="flex-grow mr-2">
       <input
         ref={inputRef}
