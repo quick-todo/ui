@@ -1,5 +1,6 @@
 import axios from 'axios'
-import  { Cookies } from "react-cookie";
+import  { Cookies } from 'react-cookie'
+import config from 'config/config'
 
 
 function setAccessToken(config: any){
@@ -23,7 +24,7 @@ function errorNormalization(error: any) {
 }
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8080'
+  baseURL: config.serverURL,
 })
 
 axiosInstance.interceptors.response.use(successNormalization, errorNormalization);

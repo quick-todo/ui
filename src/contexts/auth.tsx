@@ -30,7 +30,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           // invalid token
           removeCookie('accessToken')
           removeCookie('user')
-          history.push('/login')          
+          history.push('/login')
         }
       })
   }, [location, removeCookie, history, cookie])

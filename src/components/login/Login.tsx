@@ -31,14 +31,12 @@ const Login = () => {
             type="email"
             placeholder="Email"
             value={email}
+            autoComplete="on"
             required
             onChange={(e: any) => setEmail(e.target.value)}
           />
           <button className={styles.loginButton} onClick={(e: any) => {
-            e.preventDefault();
-
-            // if (validEmail(email)) {}
-            
+            e.preventDefault();            
             login(email).then((data: any) => {
               setHash(data.hash)
             }).catch(displayError)

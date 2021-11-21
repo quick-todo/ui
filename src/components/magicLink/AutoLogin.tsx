@@ -11,16 +11,27 @@ function generateAccessToken(hash: string) {
   return axios.post('/magic-link/generate-access-token', {hash})
 }
 
+function getUserData() {
+  return axios.get('/current-user')
+}
+
 export default function AutoLogin() {
   let { hash } = useParams<Params>()
   const history = useHistory()
-  const [, setCookie] = useCookies(['accessToken', 'user'])
+  const [, setCookie, removeCookie] = useCookies(['accessToken', 'user'])
   
   useEffect(() => {
     generateAccessToken(hash).then((data: any) => {
       setCookie('accessToken', data.accessToken, { secure: true, path: '/' })
-      setCookie('user', data.userData, { secure: true, path: '/', })
-      history.push('/')
+      getUserData().then((user: any) => {
+        setCookie('user', user, { secure: true, path: '/', })
+        history.push('/')
+      })
+      .catch(() => {
+        // TODO: Display error
+        removeCookie('accessToken')
+        history.push('/login')
+      })
     }).catch(() => {
       history.push('/login')
     })
