@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'store'
-import { readTodo, toggleCompleteStatus } from 'store/todoSlice'
+import { readTodo, setFilter, toggleCompleteStatus } from 'store/todoSlice'
 import  TodoItemOptions from 'components/todo/TodoItemOptions'
 import RichText from 'components/todo/RichText'
 
@@ -25,11 +25,10 @@ function TodoItem(props: TODOItemProps) {
     </div>
     <div className={`flex-grow mr-2 ${record.isCompleted ? 'line-through' : '' }`}>
       <RichText
-        filterClass="cursor-pointer font-semibold	 text-blue-800"
+        filterClass="cursor-pointer font-semibold text-blue-800"
         text={record?.task}
         onFilterClick={ (e, token) => {
-          console.log(e);          
-          console.log(token);          
+          dispatch(setFilter(token.value))
         }}
       />
     </div>

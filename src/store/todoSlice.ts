@@ -5,6 +5,8 @@ interface TodoRecord {
   _id: string
   task: string
   isCompleted: boolean
+  hashtags: string[]
+  taggedUsers: string[]
   createdAt: string
   updatedAt: string
 }
@@ -14,15 +16,20 @@ interface Todo {
   pending: TodoRecord[]
 }
 
-
-type TodoState = Todo & {
+export type TodoState = Todo & {
   isLoading: boolean
+  hashtags: string[]
+  taggedUsers: string[]
+  activeFilter: string
 }
 
 const initialState: TodoState = {
   done: [], 
   pending: [],
   isLoading: false,
+  hashtags: [],
+  taggedUsers: [],
+  activeFilter: ''
 }
 
 export const readTodo = createAsyncThunk(
@@ -46,15 +53,21 @@ const todoSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
-    addTask: (state, action) => {},
-    unshiftPendingItem: (state, action) => {}
+    setFilter: (state, action) => {
+      state.activeFilter = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(readTodo.fulfilled, (state, action) => {
       const data = (action.payload as unknown) as TodoRecord[]
-      const {done, pending} = groupByCompleteStats(data)
+      const { done, pending } = groupByCompleteStats(data)
+      const hashtags = pending.map((todo) => todo.hashtags).flat()
+      const taggedUsers = pending.map((todo) => todo.taggedUsers).flat()      
+      
       state.done = done
       state.pending = pending
+      state.hashtags = Array.from(new Set(hashtags))
+      state.taggedUsers = Array.from(new Set(taggedUsers))
     })
 
     builder.addCase(readTodo.rejected, (state, action) => {
@@ -63,11 +76,6 @@ const todoSlice = createSlice({
 
     builder.addCase(createTodo.rejected, (state, action) => {
       alert(1)
-    })
-
-    builder.addCase(createTodo.fulfilled, (state, action) => {
-      const item = (action.payload as unknown) as TodoRecord
-      state.pending.unshift(item)
     })
   },
 })
@@ -91,8 +99,6 @@ function groupByCompleteStats(data: TodoRecord[]): Todo {
 }
 
 
-export const {
-  addTask
-} = todoSlice.actions
+export const { setFilter } = todoSlice.actions
 
 export default todoSlice.reducer

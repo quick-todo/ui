@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { createTodo } from 'store/todoSlice';
+import { AppDispatch } from 'store';
+import { createTodo, readTodo } from 'store/todoSlice';
 
 interface TODOItemProps {
   onSuccess?: () => void,
@@ -10,7 +11,7 @@ interface TODOItemProps {
 
 function TodoItem(props: TODOItemProps) {
   const inputRef = useRef<HTMLInputElement>(null)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
   const onEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== 'Enter') {
@@ -18,7 +19,9 @@ function TodoItem(props: TODOItemProps) {
     }
 
     const target = e.target as HTMLInputElement
-    dispatch(createTodo({task: target.value}))
+    dispatch(createTodo({task: target.value})).then(() => {
+      dispatch(readTodo())
+    })
     target.value = ''
   }
   
