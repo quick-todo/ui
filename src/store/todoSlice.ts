@@ -59,15 +59,11 @@ const todoSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(readTodo.fulfilled, (state, action) => {
-      const data = (action.payload as unknown) as TodoRecord[]
-      const { done, pending } = groupByCompleteStats(data)
-      const hashtags = pending.map((todo) => todo.hashtags).flat()
-      const taggedUsers = pending.map((todo) => todo.taggedUsers).flat()      
-      
+      const { done, pending, hashtags, taggedUsers } = action.payload as any
       state.done = done
       state.pending = pending
-      state.hashtags = Array.from(new Set(hashtags))
-      state.taggedUsers = Array.from(new Set(taggedUsers))
+      state.hashtags = hashtags
+      state.taggedUsers = taggedUsers
     })
 
     builder.addCase(readTodo.rejected, (state, action) => {
@@ -79,24 +75,6 @@ const todoSlice = createSlice({
     })
   },
 })
-
-
-// Helper method
-function groupByCompleteStats(data: TodoRecord[]): Todo {
-  const stub: Todo = {
-    done: [],
-    pending: [],
-  }
-
-  return data.reduce((box: any, item: any) => {
-    if (item.isCompleted) {
-      box.done.push(item)
-    }else{
-      box.pending.push(item)
-    }
-    return box
-  }, stub)
-}
 
 
 export const { setFilter } = todoSlice.actions
