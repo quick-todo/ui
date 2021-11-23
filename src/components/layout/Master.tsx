@@ -11,9 +11,9 @@ function Master(props: Props) {
           <Sidebar />
         </div>
       </div>
-      <div className="main-content lg:ml-60 flex-1 mt-12 pb-24 p-3 md:mt-0 md:pb-0" style={{backgroundColor:'#f4f4f6'}}>
+      <div className="main-content lg:ml-60 flex-1 mt-12 pb-24 p-3 md:mt-0 md:pb-0 min-h-screen	" style={{backgroundColor:'#f4f4f6'}}>
         <div className="max-w-screen-lg m-auto relative">
-        {props.children}
+          {props.children}
         </div>
       </div>
     </div>
