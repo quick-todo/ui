@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit'
 import { RootState } from 'store'
-import { TodoState } from 'store/todoSlice'
+import { TodoState } from 'store/todo/todoSlice'
 
 const todoState = (state: RootState) => state.todo
 

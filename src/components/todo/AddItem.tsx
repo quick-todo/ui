@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'store';
-import { createTodo, readTodo } from 'store/todoSlice';
+import { createTodo, readTodo } from 'store/todo/todoAction';
 
 interface TODOItemProps {
   onSuccess?: () => void,

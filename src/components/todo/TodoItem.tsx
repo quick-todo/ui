@@ -1,7 +1,8 @@
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'store'
-import { readTodo, setFilter, toggleCompleteStatus } from 'store/todoSlice'
+import { setFilter } from 'store/todo/todoSlice'
+import { readTodo, toggleCompleteStatus } from 'store/todo/todoAction'
 import  TodoItemOptions from 'components/todo/TodoItemOptions'
 import RichText from 'components/todo/RichText'
 

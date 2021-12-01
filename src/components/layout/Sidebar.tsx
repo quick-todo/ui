@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from 'store'
-import { setFilter } from "store/todoSlice"
+import { setFilter } from "store/todo/todoSlice"
 
 function Sidebar() {
   const dispatch = useDispatch()
