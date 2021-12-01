@@ -3,10 +3,10 @@ import TodoItem from 'components/todo/TodoItem'
 import AddItem from 'components/todo/AddItem'
 import Divider from 'components/todo/Divider'
 import { useSelector, useDispatch } from 'react-redux'
-import { readTodo } from 'store/todoSlice'
+import { readTodo } from 'store/todo/todoAction'
 import { RootState } from 'store'
 import { useEffect } from 'react'
-import { pendingTodo } from 'store/todoSelector'
+import { pendingTodo } from 'store/todo/todoSelector'
 
 
 function Home() {

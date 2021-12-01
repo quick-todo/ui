@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'store'
-import { deleteItem, readTodo } from 'store/todoSlice'
+import { deleteItem, readTodo } from 'store/todo/todoAction'
 import { Dots } from 'svg/icons'
 
 interface Props {
