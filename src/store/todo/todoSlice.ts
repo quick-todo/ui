@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { readTodo, createTodo } from 'store/todo/todoAction'
+import { createSlice } from '@reduxjs/toolkit'
+import { readTodo } from 'store/todo/todoAction'
 
 interface TodoRecord {
   _id: string
@@ -33,7 +33,7 @@ const initialState: TodoState = {
 }
 
 const todoSlice = createSlice({
-  name: 'counter',
+  name: 'todo',
   initialState,
   reducers: {
     setFilter: (state, action) => {
@@ -49,13 +49,13 @@ const todoSlice = createSlice({
       state.taggedUsers = taggedUsers
     })
 
-    builder.addCase(readTodo.rejected, (state, action) => {
-      console.log(action)
-    })
+    // builder.addCase(readTodo.rejected, (state, action) => {
+    //   console.log(action)
+    // })
 
-    builder.addCase(createTodo.rejected, (state, action) => {
-      alert(1)
-    })
+    // builder.addCase(createTodo.rejected, (state, action) => {
+    //   alert(1)
+    // })
   },
 })
 

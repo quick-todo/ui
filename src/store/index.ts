@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import todoReducer from 'store/todo/todoSlice'
+import errorReducer from 'store/error/errorSlice'
 
 export const store = configureStore({
   reducer: {
     todo: todoReducer,
+    error: errorReducer,
   },
 })
 
