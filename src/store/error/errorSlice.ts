@@ -6,7 +6,7 @@ interface ErrorState {
 }
 
 const initialState: ErrorState = {
-  success: 'Success!!',
+  success: '',
   error: ''
 }
 
@@ -14,15 +14,16 @@ const errorSlice = createSlice({
   name: 'error',
   initialState,
   reducers: {
-    setSuccess: (state, action) => {
+    _setSuccess: (state, action) => {
       state.success = action.payload
     },
 
-    setError: (state, action) => {
+    // Use method from action instead
+    _setError: (state, action) => {
       state.error = action.payload
     }
   }
 })
 
-export const { setError } = errorSlice.actions
+export const { _setError, _setSuccess } = errorSlice.actions
 export default errorSlice.reducer

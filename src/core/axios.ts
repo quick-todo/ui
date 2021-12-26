@@ -1,5 +1,5 @@
 import axios from 'axios'
-import  { Cookies } from 'react-cookie'
+import { Cookies } from 'react-cookie'
 import config from 'config/config'
 
 

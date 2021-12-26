@@ -1,14 +1,12 @@
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'store';
-import { createTodo, readTodo } from 'store/todo/todoAction';
-import { setError } from 'store/error/errorSlice'
+import { createTodo } from 'store/todo/todoAction';
 
 interface TODOItemProps {
   onSuccess?: () => void,
   onError?: (e: any) => void,
 }
-
 
 function TodoItem(props: TODOItemProps) {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -21,8 +19,10 @@ function TodoItem(props: TODOItemProps) {
 
     const target = e.target as HTMLInputElement
     dispatch(createTodo({task: target.value})).then(() => {
-      dispatch(readTodo())
-    }).catch((error) => dispatch(setError('Failed to create task :(')))
+      // console.log(args);
+      // dispatch(setHttpError(error))
+    })
+
     target.value = ''
   }
   
