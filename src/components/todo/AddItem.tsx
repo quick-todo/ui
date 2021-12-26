@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'store';
-import { createTodo } from 'store/todo/todoAction';
+import { createTodo, readTodo } from 'store/todo/todoAction';
 
 interface TODOItemProps {
   onSuccess?: () => void,
@@ -19,6 +19,8 @@ function TodoItem(props: TODOItemProps) {
 
     const target = e.target as HTMLInputElement
     dispatch(createTodo({task: target.value})).then(() => {
+      // TODO: handle errors
+      dispatch(readTodo())
       // console.log(args);
       // dispatch(setHttpError(error))
     })
